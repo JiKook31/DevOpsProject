@@ -4,7 +4,7 @@
 apt-get update
 
 echo "\n----- Installing Apache, Java 8, pip and Unzip ------\n"
-apt-get install -y apache2 openjdk-8-jdk unzip python3-pip
+apt-get install -y apache2 openjdk-8-jdk
 update-alternatives --config java
 
 echo "\n----- MySQL setup ------\n"
@@ -30,16 +30,10 @@ sudo service mysql restart
 mysql -u root -proot -e "CREATE DATABASE mycollab;"
 mysql -u root -proot -e "SET GLOBAL time_zone = '+3:00';"
 
-echo "\n----- MyCollab setup ------\n"
-
 # ---------------------------------------
 #          MyCollab Setup
 # ---------------------------------------
 
-# downloading MyCollab
-wget 'https://netcologne.dl.sourceforge.net/project/mycollab/MyCollab_5.3.4/MyCollab-All-5.3.4.zip'
-# unzipping
-unzip MyCollab-All-5.3.4.zip
 # starting
-cd MyCollab-5.3.4/bin/
+cd /project/bin/
 ./startup.sh

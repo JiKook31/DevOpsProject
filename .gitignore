@@ -1,0 +1,4 @@
+project/
+*.log
+.DS_Store
+.vagrant/
