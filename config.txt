@@ -1,0 +1,18 @@
+-------------DEV ENVIRONMENT-------------
+Machine IP: 192.168.12.10
+DB IP: 		192.168.12.10:3306
+
+------------TEST ENVIRONMENT------------
+Machine IP: 192.168.13.10
+DB IP: 		192.168.11.10:3306
+
+------------STAGE ENVIRONMENT-----------
+Machine IP: 192.168.14.10
+DB IP: 		192.168.11.10:3306
+
+------------PROD ENVIRONMENT------------
+Machine IP: 192.168.15.10
+DB IP: 		192.168.11.10:3306
+
+DB user: root
+DB password: root
