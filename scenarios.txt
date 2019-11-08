@@ -1,0 +1,7 @@
+When the project is completely set up in the GitLab by following the instructions from readme.txt, the pipeline will be succefully completed without any errors and all stages in GitLab will be in green color.
+
+For build stage to exit with error, following can be done:
+
+For intagration stage to exit with error, following can be done:
+
+For release stage to exit with error, following can be done:
