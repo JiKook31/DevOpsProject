@@ -1,7 +1,45 @@
-When the project is completely set up in the GitLab by following the instructions from readme.txt, the pipeline will be succefully completed without any errors and all stages in GitLab will be in green color.
+When the project is completely set up in the GitLab by following the instructions from
+readme.txt, the pipeline will be successfully completed without any errors and all stages
+in GitLab will be in green color.
+
 
 For build stage to exit with error, following can be done:
 
-For intagration stage to exit with error, following can be done:
+1. To crash unit test cases:
+Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
+In the function isEditionNewer change '>' to '<' in the return statement in loop (line 68)
+or '!=' to '=' in the if statement (line 67).
+
+2. To crash the build itself:
+Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
+Delete any bracket (i.e. (, {, [ or any other). 
+
+3. Static analysis job is designed to not exit with error regardless of the results of
+analysis (it just produces the report), so there is no way to break it.
+
+
+For integration stage to exit with error, following can be done:
+
+1. You can try to change the name of the "Setup" button and expect that it will break the
+acceptance testing, but it won't, and the stage will successfully pass all of the tests
+because clicking a button happens by accessing an object on the page and not referencing
+it by its name.
+To try that, you can edit mycollab-server-runner/src/main/resources/pageSetupFresh.ftl:
+Line 190, change the value 'Setup' (it's located before </span></button>) to any other
+value.
+You will see that it won't break the integration stage.
+
+2. To actually break this stage you will need to comment out any of the input fields on
+the page or even delete them. Acceptance testing won't find corresponding object to fill
+and exit with error.
+To do that, you can edit mycollab-server-runner/src/main/resources/pageSetupFresh.ftl:
+Delete the line 75 (or comment out by inserting <#-- in the beginning of the line and -->
+at the end of the line).
+So acceptance testing makes sure that all required fields are in place, but doesn't care
+about names of buttons. This prevents developer to accidentally delete some important
+piece of code.
+
 
 For release stage to exit with error, following can be done:
+
+If we change startup.sh, it will be caught during acceptance testing, not release. 
