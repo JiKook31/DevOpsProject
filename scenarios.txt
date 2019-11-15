@@ -1,4 +1,4 @@
-When the project is completely set up in the GitLab by following the instructions from
+When the project is completely set up in GitLab by following the instructions from
 readme.txt, the pipeline will be successfully completed without any errors and all stages
 in GitLab will be in green color.
 
@@ -10,9 +10,10 @@ Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
 In the function isEditionNewer change '>' to '<' in the return statement in loop (line 68)
 or '!=' to '=' in the if statement (line 67).
 
-2. To crash the build itself:
+2. If you cause some syntactic error by doing following:
 Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
-Delete any bracket (i.e. (, {, [ or any other). 
+Delete any bracket (i.e. (, {, [ or any other).
+It will also be caught by unit tests, just the type of error will be different (for this case it will say that it is compilation error). So most of errors will be caught when unit tests are executed before the start of the build.
 
 3. Static analysis job is designed to not exit with error regardless of the results of
 analysis (it just produces the report), so there is no way to break it.
