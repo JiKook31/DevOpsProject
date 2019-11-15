@@ -2,6 +2,9 @@ When the project is completely set up in GitLab by following the instructions fr
 readme.txt, the pipeline will be successfully completed without any errors and all stages
 in GitLab will be in green color.
 
+Comments before start:
+In order to try the following scenarios it will be better to create a new branch named "hotfix/scenarios" and commit and push every time there is a need to start the pipeline with new changes.
+
 
 For build stage to exit with error, following can be done:
 
@@ -9,12 +12,12 @@ For build stage to exit with error, following can be done:
 Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
 In the function isEditionNewer change '>' to '<' in the return statement in loop (line 68)
 or '!=' to '=' in the if statement (line 67).
+After the commit and push you will see that some unit test did not pass and all other consecutive stages were skipped.
 
 2. If you cause some syntactic error by doing following:
 Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
 Delete any bracket (i.e. (, {, [ or any other).
-It will also be caught by unit tests, just the type of error will be different (for this 
-case it will say that it is compilation error). So most of errors will be caught when 
+After the commit and push, it will also be caught by unit tests, just the type of error will be different (for this case it will say that it is compilation error). So most of errors will be caught when 
 unit tests are executed before the start of the build.
 
 3. Static analysis job is designed to not exit with error regardless of the results of
@@ -30,11 +33,10 @@ it by its name.
 To try that, you can edit mycollab-server-runner/src/main/resources/pageSetupFresh.ftl:
 Line 190, change the value 'Setup' (it's located before </span></button>) to any other
 value.
-You will see that it won't break the integration stage.
+After the commit and push you will see that it won't break the integration stage.
 
 2. To actually break this stage you will need to comment out any of the input fields on
-the page or even delete them. Acceptance testing won't find corresponding object to fill
-and exit with error.
+the page or even delete them. After commit and push acceptance testing won't find corresponding object to fill out and will exit with error.
 To do that, you can edit mycollab-server-runner/src/main/resources/pageSetupFresh.ftl:
 Delete the line 75 (or comment out by inserting <#-- in the beginning of the line and -->
 at the end of the line).
@@ -46,10 +48,19 @@ piece of code.
 We can try to break release stage by changing the startup script.
 But the error will be caught at acceptance testing. Which is the whole point of having the same startup mechanism everywhere.
 
-You might want to create a new branch for this experiment name it "hotfix/crash-startup" for example.
-
 To do it let's modify file mycollab-app-community/src/main/scripts/startup.sh
 Comment the last line (45th) with the "exec" command.
 Commit and push the file. The integration_stage will fail as the acceptance test will not be able to reach the site.
 
 
+Branching policy
+
+The advice to create a branch which name starts with "hotfix" is not random. Our project has the constraints on name of the branches and the pipeline stages that it consists of. Below you can see the description of this policy.
+
+1. master - build stage + release stage,
+2. hotfix/* - all of the stages are included,
+3. develop - all stages except release stage,
+4. release/* - all stages except static analysis,
+5. feature/* - only build stage.
+
+You can try to create branches with corresponding names and see by yourself that this policy is implemented and is working correctly.
