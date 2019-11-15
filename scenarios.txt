@@ -3,7 +3,8 @@ readme.txt, the pipeline will be successfully completed without any errors and a
 in GitLab will be in green color.
 
 Comments before start:
-In order to try the following scenarios it will be better to create a new branch named "hotfix/scenarios" and commit and push every time there is a need to start the pipeline with new changes.
+In order to try the following scenarios it will be better to create a new branch named "hotfix/scenarios"
+and commit and push every time there is a need to start the pipeline with new changes.
 
 
 For build stage to exit with error, following can be done:
@@ -17,7 +18,8 @@ After the commit and push you will see that some unit test did not pass and all 
 2. If you cause some syntactic error by doing following:
 Edit mycollab-core/src/main/java/com/mycollab/core/Version.java:
 Delete any bracket (i.e. (, {, [ or any other).
-After the commit and push, it will also be caught by unit tests, just the type of error will be different (for this case it will say that it is compilation error). So most of errors will be caught when 
+After the commit and push, it will also be caught by unit tests, just the type of error will be different
+(for this case it will say that it is compilation error). So most of errors will be caught when 
 unit tests are executed before the start of the build.
 
 3. Static analysis job is designed to not exit with error regardless of the results of
@@ -36,7 +38,8 @@ value.
 After the commit and push you will see that it won't break the integration stage.
 
 2. To actually break this stage you will need to comment out any of the input fields on
-the page or even delete them. After commit and push acceptance testing won't find corresponding object to fill out and will exit with error.
+the page or even delete them. After commit and push acceptance testing won't find corresponding 
+object to fill out and will exit with error.
 To do that, you can edit mycollab-server-runner/src/main/resources/pageSetupFresh.ftl:
 Delete the line 75 (or comment out by inserting <#-- in the beginning of the line and -->
 at the end of the line).
@@ -55,7 +58,8 @@ Commit and push the file. The integration_stage will fail as the acceptance test
 
 Branching policy
 
-The advice to create a branch which name starts with "hotfix" is not random. Our project has the constraints on name of the branches and the pipeline stages that it consists of. Below you can see the description of this policy.
+The advice to create a branch which name starts with "hotfix" is not random. Our project has the constraints 
+on name of the branches and the pipeline stages that it consists of. Below you can see the description of this policy.
 
 1. master - build stage + release stage,
 2. hotfix/* - all of the stages are included,
