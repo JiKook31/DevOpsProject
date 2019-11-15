@@ -43,6 +43,13 @@ about names of buttons. This prevents developer to accidentally delete some impo
 piece of code.
 
 
-For release stage to exit with error, following can be done:
+We can try to break release stage by changing the startup script.
+But the error will be caught at acceptance testing. Which is the whole point of having the same startup mechanism everywhere.
 
-If we change startup.sh, it will be caught during acceptance testing, not release. 
+You might want to create a new branch for this experiment name it "hotfix/crash-startup" for example.
+
+To do it let's modify file mycollab-app-community/src/main/scripts/startup.sh
+Comment the last line (45th) with the "exec" command.
+Commit and push the file. The integration_stage will fail as the acceptance test will not be able to reach the site.
+
+
